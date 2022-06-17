@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <style>
+        body {
+            height: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="Click me to win EUR 100" style="position: absolute; top: 200px; left: 500px; height: 50px; width: 150px; white-space: normal;" onmousemove="moveButton()" onclick="showAlert()" />
+    
+    <script type="text/javascript">
+        var prize = 100;
+
+        function decreasePrize() {
+            var button = document.getElementsByTagName('input')[0];
+
+            if (prize < 1) {
+                alert('You did not win. Try again');
+                prize = 100;
+            }
+            else {
+                prize--;
+            }
+
+            button.value = 'Click me to win EUR ' + prize;
+        }
+
+        document.body.addEventListener("click", decreasePrize)
+
+        function moveButton() {
+            // Comment out the next row to test:
+            //return;
+
+            var button = document.getElementsByTagName('input')[0];
+
+            var e = window.event;
+            var x = e.clientX;
+            var y = e.clientY;
+
+            /*
+             * top left: 500-650 x 200-250
+             * top right: 650-800 x 200-250
+             * botton left: 500-650 x 250-300
+             * bottom right: 650-800 x 250-300
+             */
+
+            if (x >= 500 && x < 650 && y >= 200 && y < 250) {
+                // top left
+                button.style.left = "500px";
+                button.style.top = "250px";
+            }
+            else if (x >= 650 && x <= 800 && y >= 200 && y < 250) {
+                // top right
+                button.style.left = "500px";
+                button.style.top = "200px";
+            }
+            else if (x >= 500 && x < 650 && y >= 250 && y <= 300) {
+                // bottom left
+                button.style.left = "650px";
+                button.style.top = "250px";
+            }
+            else if (x >= 650 && x <= 800 && y >= 250 && y <= 300) {
+                // bottom right
+                button.style.left = "650px";
+                button.style.top = "200px";
+            }
+        }
+
+        function showAlert() {
+            alert('Congrats! You won EUR ' + prize + '!');
+            prize = 101;
+        }
+    </script>
+</body>
+</html>
